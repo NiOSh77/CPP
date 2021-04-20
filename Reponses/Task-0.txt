@@ -1,0 +1,20 @@
+A- Exécution
+
+    Fonction responsable de gérer les inputs dans tower_sim.cpp : 
+        void TowerSimulation::create_keystrokes() const;
+
+    Pour ajouter un avion :     C
+    Quitter le programme :      Q et X
+
+    F sert à passer en mode plein écran et de le quitter.
+
+    Quand on ajoute un avion, il arrive depuis les airs, se pose sur la piste, 
+    se dirige vers une zone pour faire l'entretien, repart vers la piste, décolle et
+    s'en va dans les airs pour ensuite disparaitre et il recommence.
+
+    Sur la console on a les informations sur l'avion qui atterrit, qui commence
+    un entretien, qui finit l'entretien, et qui décolle de la piste avec le numéro
+    de l'avion en question.
+
+    Il y a maximum 3 avions sur l'aéroport, les autres attendent qu'une place se
+    libère pour se poser.
