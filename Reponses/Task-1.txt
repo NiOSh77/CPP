@@ -20,5 +20,12 @@ Objectif 1 - Référencement des avions
     C - C'est parti
 
 
+Objectif 2 - Usine à avion
+
+    A - Création d'une factory
+
+    b - Conflits
+        On va ajouter un set à la classe.
+
 
         
