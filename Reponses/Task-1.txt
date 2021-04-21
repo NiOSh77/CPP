@@ -1,0 +1,6 @@
+Analyse de la gestion des avions
+
+    Si on veut récupérer un avion ayant le numéro de vol "AF1250" dans le programme, 
+    il faudrait faire des opérations sur GL::display_queue ou GL::move_queue,
+    itérer tous les objets en vérifiant si l'objet est de type AirCraft, puis
+    vérifier son numéro de vol. Pas très pratique.
