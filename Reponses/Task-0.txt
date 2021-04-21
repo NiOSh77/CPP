@@ -18,3 +18,107 @@ A- Exécution
 
     Il y a maximum 3 avions sur l'aéroport, les autres attendent qu'une place se
     libère pour se poser.
+
+
+B- Analyse du code
+
+    Liste des classes :
+
+        -AircraftType : Sert à décrire le type d'avion, avec sa vitesse max au sol, dans 
+            les airs et son accélération.
+        
+        -Aircraft :     Décrit entièrement un avion, avec le AircraftType, son numéro de
+            vol, sa position dans l'espace, ...
+            
+            -> Fonctions :
+                const std::string& get_flight_num() const { return flight_number; }
+                    Retourne le numéro de vol de l'avion.
+
+                float distance_to(const Point3D& p) const { return pos.distance_to(p); }
+                    Retourne la distance entre l'avion et le point donné en paramètre.
+
+                void display() const override;
+                    Pour afficher l'avion sur l'interface graphique.
+
+                void move() override;
+                    Mets à jour l'avion selon des règles.
+                    
+                    Dirige l'avion vers le prochain waypoint, change sa position selon
+                    sa vitesse.
+                    
+                    Ensuite, si l'avion est arrivé au waypoint, si c'est un
+                    terminal il indique à la tour de contrôl qu'il est arrivé à celui-ci,
+                    sinon il s'occupe du train d'attérissage (décollage ou attérissage).
+
+
+        -AirportType :  Décrit un aéroport avec la position de la piste, des chemins vers
+            les terminaux, la piste.
+
+        -Airport :      Décrit un aéroport avec AirportType, sa position, la texture
+            utilisée, sa tour de contrôl et ses terminaux.
+
+            ->Fonctions :
+                Tower& get_tower() { return tower; }
+                    Retourne la tour de contrôl de cet aéroport.
+
+                void display() const override { texture.draw(project_2D(pos), { 2.0f, 2.0f }); }
+                    Affiche l'aéroport sur l'interface graphique.
+
+                void move() override;
+                    Met à jour tous les terminaux qu'il contient.
+
+        -Point2D et Point3D : /
+
+        -Runway :       La piste avec sa position dans l'espace.
+
+        -Terminal :     Représente l'endroit où les avions font leur entretien.
+            -> Fonctions :
+                bool in_use() const { return current_aircraft != nullptr; }
+                    Retourne vrai si le terminal est occupé par un avion, sinon faux.
+
+                bool is_servicing() const { return service_progress < SERVICE_CYCLES; }
+                    Retourne le statut du service.
+                
+                void assign_craft(const Aircraft& aircraft) { current_aircraft = &aircraft; }
+                    Permet d'assigner l'avion en paramètre à ce terminal.
+
+                void start_service(const Aircraft& aircraft);
+                    Commencer le service à l'avion en paramètre.
+
+                void finish_service();
+                    Termine le service donné à l'avion.
+
+                void move() override;
+                    Met à jour le terminal. 
+                    Si un avion l'occupe et qu'il est en cours d'entretien, on ajoute 1
+                    au champ service_progress. 
+
+        -TowerSimulation : La classe qui s'occupe de faire toute la simulation en 
+            utilisant les autres classes.
+
+        -Tower :        S'occupe des reservations.
+            -> Fonctions :
+                WaypointQueue get_instructions(Aircraft& aircraft);
+                    Retourne une liste de Waypoints qui indique pour l'avion en paramètre
+                    le chemin qu'il doit suivre.
+
+                    Si l'avion n'est pas à un terminal, on le guide vers l'aéroport, on essaye
+                    de lui réserver un terminal. Si aucun n'est dispo ou que l'avion n'est
+                    pas assez près de l'aéroport, on lui envoie le chemin pour faire le tour de
+                    l'aéroport dans les airs.
+
+                    Si l'avion est sur un terminal, il met à jour les données de progression
+                    du service et retourne rien si l'avion est en cours de service, ou le chemin
+                    pour quitter l'aéroport depuis ce terminal.
+
+                void arrived_at_terminal(const Aircraft& aircraft);
+                    Trouve un avion et un terminal pour réserver et commencer le service.
+
+        -Waypoint :     Indique des points de passages dans les airs, les terminaux et 
+            sur le sol.
+
+
+    Tower s'occupe de générer un chemin pour les avions, avec la fonction get_instructions.
+    Pour représenter le chemin, deque a été utilisé : std::deque<Waypoint>
+    Permet d'accéder, de supprimer et d'ajouter un élément au début et à la fin de la liste 
+    en O(1).
