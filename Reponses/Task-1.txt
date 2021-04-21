@@ -4,3 +4,21 @@ Analyse de la gestion des avions
     il faudrait faire des opérations sur GL::display_queue ou GL::move_queue,
     itérer tous les objets en vérifiant si l'objet est de type AirCraft, puis
     vérifier son numéro de vol. Pas très pratique.
+
+
+Objectif 1 - Référencement des avions
+
+    A - Choisir l'architecture
+
+    B - Déterminer le propriétaire de chaque avion
+
+        1) La classe Displayable avec le destructeur
+        2) Les variables display_queue et move_queue peuvent en contenir
+        3) delete
+        4) ??
+
+    C - C'est parti
+
+
+
+        
