@@ -145,3 +145,12 @@ C- Bidouillons
     6) std::vector<std::pair<const Aircraft*, size_t>>
     ça revient à utiliser une map dont la clé est Aircraft* et la valeur size_t.
     Les opérations dessus seront en O(1)
+
+
+D- Théorie
+
+    1) Tower possède une référence Aeroport, la fonction publique get_instructions
+    reserve un terminal à l'avion et arrived_at_terminal s'occupe de lancer le service
+    du terminal, ses deux fonctions utilisent des fonctions sur la référence Airport.
+
+    2) ??
