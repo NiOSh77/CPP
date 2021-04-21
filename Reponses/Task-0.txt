@@ -122,3 +122,26 @@ B- Analyse du code
     Pour représenter le chemin, deque a été utilisé : std::deque<Waypoint>
     Permet d'accéder, de supprimer et d'ajouter un élément au début et à la fin de la liste 
     en O(1).
+
+
+C- Bidouillons
+
+    1) Dans le fichier aircraft_types.hpp dans la fonction init_aircraft_types().
+
+    2) La variable ticks_per_sec contrôle le framerate de la simulation.
+    Si le framerate est à 0 il y a une division par 0 et ça plante.
+
+    3) La variable SERVICE_CYCLES dans config.hpp.
+
+    4) On peut savoir si un avion doit être supprimé dans la fonction moove de Aircraft qui le
+    met à jour. on ne peut pas le supprimer dedans car des champs dans des classes
+    ont une référence sur celui-ci.
+
+    5) On doit ajouter du code dans les destructeurs.
+
+    Pourquoi n'est-il pas spécialement pertinent d'en faire de même pour DynamicObject ?
+     ?
+
+    6) std::vector<std::pair<const Aircraft*, size_t>>
+    ça revient à utiliser une map dont la clé est Aircraft* et la valeur size_t.
+    Les opérations dessus seront en O(1)
