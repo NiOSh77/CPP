@@ -7,9 +7,62 @@
 #include <iostream>
 #include <numeric>
 
+/*template <typename ElementType, size_t Dimension>
+class Point 
+{
+private:
+    std::array<ElementType, Dimension> array;
+
+    Point()
+    { }
+
+public:
+    Point& operator+=(const Point& other)
+    {
+        x() += other.x();
+        y() += other.y();
+        return *this;
+    }
+
+    Point& operator*=(const Point& other)
+    {
+        x() *= other.x();
+        y() *= other.y();
+        return *this;
+    }
+
+    Point& operator*=(const ElementType scalar)
+    {
+        x() *= scalar;
+        y() *= scalar;
+        return *this;
+    }
+
+    Point operator+(const Point& other) const
+    {
+        Point result = *this;
+        result += other;
+        return result;
+    }
+
+    Point operator*(const Point& other) const
+    {
+        Point result = *this;
+        result *= other;
+        return result;
+    }
+
+    Point operator*(const ElementType scalar) const
+    {
+        Point result = *this;
+        result *= scalar;
+        return result;
+    }
+};*/
+
 struct Point2D
 {
-    float values[2] {};
+    std::vector<float> values;
 
     Point2D() {}
     Point2D(float x, float y) : values { x, y } {}
@@ -22,22 +75,19 @@ struct Point2D
 
     Point2D& operator+=(const Point2D& other)
     {
-        x() += other.x();
-        y() += other.y();
+        std::transform(values.begin(), values.end(), other.values.begin(), values.begin(), [] (float x1, float x2) { return x1 + x2; });
         return *this;
     }
 
     Point2D& operator*=(const Point2D& other)
     {
-        x() *= other.x();
-        y() *= other.y();
+        std::transform(values.begin(), values.end(), other.values.begin(), values.begin(), [] (float x1, float x2) { return x1 * x2; });
         return *this;
     }
 
     Point2D& operator*=(const float scalar)
     {
-        x() *= scalar;
-        y() *= scalar;
+        std::transform(values.begin(), values.end(), values.begin(), [scalar] (float x) { return x * scalar; });
         return *this;
     }
 
@@ -65,7 +115,7 @@ struct Point2D
 
 struct Point3D
 {
-    float values[3] {};
+    std::vector<float> values {};
 
     Point3D() {}
     Point3D(float x, float y, float z) : values { x, y, z } {}
@@ -81,25 +131,19 @@ struct Point3D
 
     Point3D& operator+=(const Point3D& other)
     {
-        x() += other.x();
-        y() += other.y();
-        z() += other.z();
+        std::transform(values.begin(), values.end(), other.values.begin(), values.begin(), [] (float x1, float x2) { return x1 + x2; });
         return *this;
     }
 
     Point3D& operator-=(const Point3D& other)
     {
-        x() -= other.x();
-        y() -= other.y();
-        z() -= other.z();
+        std::transform(values.begin(), values.end(), other.values.begin(), values.begin(), [] (float x1, float x2) { return x1 - x2; });
         return *this;
     }
 
     Point3D& operator*=(const float scalar)
     {
-        x() *= scalar;
-        y() *= scalar;
-        z() *= scalar;
+        std::transform(values.begin(), values.end(), values.begin(), [scalar] (float x) { return x * scalar; });
         return *this;
     }
 
