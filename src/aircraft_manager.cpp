@@ -72,3 +72,8 @@ int AircraftManager::get_required_fuel() const
     */
    return 1000;
 }
+
+int AircraftManager::get_nb_crashed_aircraft() const
+{
+    return nb_crashed_aircraft;
+}

@@ -50,6 +50,13 @@ void TowerSimulation::create_keystrokes()
     {
         GL::keystrokes.emplace('0' + x, [this, x]() { selected_airline = aircraft_factory.get_airline(x); });
     }
+
+    GL::keystrokes.emplace('m', []() { if(GL::ticks_per_sec > 1u) GL::ticks_per_sec--; });
+}
+
+void TowerSimulation::display_nb_crashed_aircraft() const
+{
+    std::cout << "Nb crashed aircraft : " << aircraft_manager.get_nb_crashed_aircraft() << std::endl;
 }
 
 void TowerSimulation::display_help() const

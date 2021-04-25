@@ -27,6 +27,8 @@ private:
 
     void init_airport();
 
+    void display_nb_crashed_aircraft() const;
+
 public:
     TowerSimulation(int argc, char** argv);
     ~TowerSimulation();

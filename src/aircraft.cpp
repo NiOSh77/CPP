@@ -191,6 +191,7 @@ bool Aircraft::is_low_on_fuel() const
 
 void Aircraft::refill(int &fuel_stock)
 {
+    assert(fuel_stock < 0 && "fuels_stock muste be positive");
     const auto remaining = 3000 - fuel;
     std::cout << flight_number << " received : ";
     if(fuel_stock - remaining < 0)
