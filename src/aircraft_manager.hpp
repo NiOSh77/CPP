@@ -15,4 +15,6 @@ public:
     bool update() override;
 
     void printsNumberAircraftByAirlines(const std::string &airlineType) const;
+
+    int get_required_fuel() const;
 };

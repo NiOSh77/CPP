@@ -9,6 +9,7 @@
 #include "runway.hpp"
 #include "terminal.hpp"
 #include "tower.hpp"
+#include "aircraft_manager.hpp"
 
 #include <vector>
 
@@ -20,6 +21,10 @@ private:
     const GL::Texture2D texture;
     std::vector<Terminal> terminals;
     Tower tower;
+    int fuel_stock = 0;
+    int ordered_fuel = 0;
+    int next_refill_time = 0;
+    const AircraftManager& aircraft_manager;
 
     // reserve a terminal
     // if a terminal is free, return
@@ -51,13 +56,14 @@ private:
     Terminal& get_terminal(const size_t terminal_num) { return terminals.at(terminal_num); }
 
 public:
-    Airport(const AirportType& type_, const Point3D& pos_, const img::Image* image, const float z_ = 1.0f) :
+    Airport(const AirportType& type_, const Point3D& pos_, const img::Image* image, const AircraftManager& manager_, const float z_ = 1.0f) :
         GL::Displayable { z_ },
         type { type_ },
         pos { pos_ },
         texture { image },
         terminals { type.create_terminals() },
-        tower { *this }
+        tower { *this },
+        aircraft_manager {manager_}
     {}
 
     Tower& get_tower() { return tower; }
@@ -66,6 +72,18 @@ public:
 
     bool update() override
     {
+        if(next_refill_time == 0)
+        {
+            const auto fuel_received = ordered_fuel;
+            fuel_stock += ordered_fuel;
+            ordered_fuel = std::min(aircraft_manager.get_required_fuel(), 5000);
+            next_refill_time = 100;
+            std::cout << "fuel received : " << fuel_received << ", fuel sotck : " << fuel_stock << ", ordered fuel : " << ordered_fuel;
+        }
+        else
+        {
+            next_refill_time--;
+        }
         for (auto& t : terminals)
         {
             t.update();

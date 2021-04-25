@@ -58,3 +58,17 @@ void AircraftManager::printsNumberAircraftByAirlines(const std::string &airlineT
             return aircraft->get_flight_num().substr(0, 2) == airlineType;
         }) << std::endl;
 }
+
+int AircraftManager::get_required_fuel() const
+{
+    /*std::vector<std::unique_ptr<Aircraft>> aircraft_cpy;
+    std::copy(aircrafts.begin(), aircrafts.end(), aircraft_cpy);
+    const std::vector<int> fuel_by_aircraft;
+    std::transform(aircraft_cpy.begin(), aircraft_cpy.end(), std::back_inserter(fuel_by_aircraft), [](const std::unique_ptr<Aircraft> aircraft_ptr){
+        const auto aircraft = aircraft_ptr.get();
+        return aircraft->is_low_on_fuel() ? 3000 - aircraft->fuel_remaining() : 0;
+    });
+    return std::reduce(fuel_by_aircraft.begin(), fuel_by_aircraft.end(), 0, [](const int a,  const int b) {return a + b;});
+    */
+   return 1000;
+}

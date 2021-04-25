@@ -104,7 +104,7 @@ bool Aircraft::update()
         turn_to_waypoint();
         // move in the direction of the current speed
         pos += speed;
-       //std::cout << flight_number << " fuel : " << fuel << std::endl;
+        //std::cout << flight_number << " fuel : " << fuel << std::endl;
         // if we are close to our next waypoint, stike if off the list
         if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
         {
@@ -182,4 +182,29 @@ bool Aircraft::has_reserved() const
 int Aircraft::fuel_remaining() const
 {
     return fuel;
+}
+
+bool Aircraft::is_low_on_fuel() const
+{
+    return fuel < 2000;
+}
+
+void Aircraft::refill(int &fuel_stock)
+{
+    const auto remaining = 3000 - fuel;
+    std::cout << flight_number << " received : ";
+    if(fuel_stock - remaining < 0)
+    {
+        fuel += fuel_stock;
+        std::cout << fuel;
+        fuel_stock = 0;
+        
+    }
+    else
+    {
+        fuel = 3000;
+        fuel_stock -= remaining;
+        std::cout << remaining;
+    }
+    std::cout << " fuel";
 }
