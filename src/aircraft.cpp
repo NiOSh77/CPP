@@ -191,7 +191,7 @@ int Aircraft::fuel_remaining() const
 
 bool Aircraft::is_low_on_fuel() const
 {
-    return fuel < 200;
+    return fuel < 2000;
 }
 
 void Aircraft::refill(int &fuel_stock)
