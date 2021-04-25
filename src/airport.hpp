@@ -76,6 +76,7 @@ public:
         {
             const auto fuel_received = ordered_fuel;
             fuel_stock += ordered_fuel;
+            std::cout << "required fuel : " << aircraft_manager.get_required_fuel() << std::endl;
             ordered_fuel = std::min(aircraft_manager.get_required_fuel(), 5000);
             next_refill_time = 100;
             std::cout << "fuel received : " << fuel_received << ", fuel sotck : " << fuel_stock << ", ordered fuel : " << ordered_fuel;

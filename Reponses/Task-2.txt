@@ -2,11 +2,13 @@ Objectif 1
 
     A - Structured Bindings
 
-    B - 3 ?
+    C - ?
 
 Objectif 2
 
     A - Consommation d'essence
+
+    B - Q3 ??
 
     D - Q3 ??
 

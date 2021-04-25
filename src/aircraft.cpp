@@ -141,8 +141,11 @@ bool Aircraft::update()
                 auto res = control.reserve_terminal(*this);
                 if(!res.empty())
                 {
-                    //Waypoints.end() car l'avion doit finir sa ronde avant de se poser
-                    std::copy(res.begin(), res.end(), std::back_inserter(waypoints));
+                    waypoints.clear();
+                    for(const auto &current : res)
+                    {
+                        waypoints.emplace_back(current);
+                    }
                     is_asking_terminal = false;
                 }
             }*/
@@ -207,5 +210,5 @@ void Aircraft::refill(int &fuel_stock)
         fuel_stock -= remaining;
         std::cout << remaining;
     }
-    std::cout << " fuel";
+    std::cout << " fuel" << std::endl;
 }

@@ -61,7 +61,8 @@ void AircraftManager::printsNumberAircraftByAirlines(const std::string &airlineT
 
 int AircraftManager::get_required_fuel() const
 {
-    /*std::vector<std::unique_ptr<Aircraft>> aircraft_cpy;
+    /* Marche pas
+    std::vector<std::unique_ptr<Aircraft>> aircraft_cpy;
     std::copy(aircrafts.begin(), aircrafts.end(), aircraft_cpy);
     const std::vector<int> fuel_by_aircraft;
     std::transform(aircraft_cpy.begin(), aircraft_cpy.end(), std::back_inserter(fuel_by_aircraft), [](const std::unique_ptr<Aircraft> aircraft_ptr){
@@ -70,7 +71,13 @@ int AircraftManager::get_required_fuel() const
     });
     return std::reduce(fuel_by_aircraft.begin(), fuel_by_aircraft.end(), 0, [](const int a,  const int b) {return a + b;});
     */
-   return 1000;
+   return std::transform_reduce(aircrafts.begin(), aircrafts.end(), 0, [](int x, int y) {return x + y;}, [](const std::unique_ptr<Aircraft>& aircraft) {
+       if(aircraft->is_low_on_fuel())
+       {
+           return 3000 - aircraft->fuel_remaining();
+       }
+       return 0;
+   });
 }
 
 int AircraftManager::get_nb_crashed_aircraft() const

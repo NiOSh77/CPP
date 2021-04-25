@@ -24,6 +24,6 @@ std::unique_ptr<Aircraft> AircraftFactory::create_random_aircraft()
 
 std::string AircraftFactory::get_airline(const int index)
 {
-    assert(index < 0 || index > sizeof(airlines)/sizeof(airlines[0]) && " index out of bound");
+    //assert(index < 0 || index > sizeof(airlines)/sizeof(airlines[0]) && " index out of bound");
     return airlines[index];
 }
