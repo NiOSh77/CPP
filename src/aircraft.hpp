@@ -46,6 +46,7 @@ private:
 
     Aircraft(const Aircraft&) = delete;
     Aircraft& operator=(const Aircraft&) = delete;
+    //Aircraft& operator=(const Aircraft&) = delete;
 
 public:
     Aircraft(const AircraftType& type_, const std::string_view& flight_number_, const Point3D& pos_,
@@ -68,6 +69,10 @@ public:
 
     bool has_terminal() const;
     bool is_circling() const;
+
+    bool has_reserved() const;
+
+    int fuel_remaining() const;
 
     friend class Tower;
 };

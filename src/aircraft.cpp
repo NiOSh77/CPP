@@ -173,3 +173,13 @@ bool Aircraft::is_circling() const
 {
     return waypoints.back().type == wp_air;
 }
+
+bool Aircraft::has_reserved() const
+{
+    return !is_asking_terminal;
+}
+
+int Aircraft::fuel_remaining() const
+{
+    return fuel;
+}
