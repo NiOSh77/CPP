@@ -9,21 +9,21 @@
 class Terminal : public GL::DynamicObject
 {
 private:
-    unsigned int service_progress    = SERVICE_CYCLES;
-    Aircraft* current_aircraft = nullptr;
+    unsigned int service_progress = SERVICE_CYCLES;
+    Aircraft *current_aircraft = nullptr;
     const Point3D pos;
 
-    Terminal(const Terminal&) = delete;
-    Terminal& operator=(const Terminal&) = delete;
+    Terminal(const Terminal &) = delete;
+    Terminal &operator=(const Terminal &) = delete;
 
 public:
-    Terminal(const Point3D& pos_) : pos { pos_ } {}
+    Terminal(const Point3D &pos_) : pos{pos_} {}
 
     bool in_use() const { return current_aircraft != nullptr; }
     bool is_servicing() const { return service_progress < SERVICE_CYCLES || current_aircraft->fuel_remaining() < 200; }
-    void assign_craft(Aircraft& aircraft) { current_aircraft = &aircraft; }
+    void assign_craft(Aircraft &aircraft) { current_aircraft = &aircraft; }
 
-    void start_service(const Aircraft& aircraft)
+    void start_service(const Aircraft &aircraft)
     {
         assert(aircraft.distance_to(pos) < DISTANCE_THRESHOLD);
         std::cout << "now servicing " << aircraft.get_flight_num() << "...\n";
@@ -32,7 +32,7 @@ public:
 
     void finish_service()
     {
-        if (!is_servicing() )
+        if (!is_servicing())
         {
             std::cout << "done servicing " << current_aircraft->get_flight_num() << '\n';
             current_aircraft = nullptr;
@@ -48,9 +48,9 @@ public:
         return true;
     }
 
-    void refill_aircraft_if_needed(int &fuel_sotck) 
+    void refill_aircraft_if_needed(int &fuel_sotck)
     {
-        if(current_aircraft->is_low_on_fuel())
+        if (current_aircraft->is_low_on_fuel())
         {
             current_aircraft->refill(fuel_sotck);
         }

@@ -14,12 +14,10 @@ struct AircraftType
     const GL::Texture2D texture;
 
     AircraftType(const float max_ground_speed_, const float max_air_speed_, const float max_accel_,
-                 const MediaPath& sprite, const size_t num_tiles = NUM_AIRCRAFT_TILES) :
-        max_ground_speed { max_ground_speed_ },
-        max_air_speed { max_air_speed_ },
-        max_accel { max_accel_ },
-        texture { new img::Image { sprite.get_full_path() }, num_tiles }
-    {}
+                 const MediaPath &sprite, const size_t num_tiles = NUM_AIRCRAFT_TILES) : max_ground_speed{max_ground_speed_},
+                                                                                         max_air_speed{max_air_speed_},
+                                                                                         max_accel{max_accel_},
+                                                                                         texture{new img::Image{sprite.get_full_path()}, num_tiles}
+    {
+    }
 };
-
-

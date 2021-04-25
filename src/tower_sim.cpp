@@ -14,10 +14,7 @@
 
 using namespace std::string_literals;
 
-
-
-TowerSimulation::TowerSimulation(int argc, char** argv) :
-    help { (argc > 1) && (std::string { argv[1] } == "--help"s || std::string { argv[1] } == "-h"s) }
+TowerSimulation::TowerSimulation(int argc, char **argv) : help{(argc > 1) && (std::string{argv[1]} == "--help"s || std::string{argv[1]} == "-h"s)}
 {
     MediaPath::initialize(argv[0]);
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -32,7 +29,7 @@ TowerSimulation::~TowerSimulation()
     delete airport;
 }
 
-void TowerSimulation::create_keystrokes() 
+void TowerSimulation::create_keystrokes()
 {
     GL::keystrokes.emplace('x', [this]() { aircraft_manager.printsNumberAircraftByAirlines(selected_airline); });
     GL::keystrokes.emplace('q', []() { GL::exit_loop(); });
@@ -64,7 +61,7 @@ void TowerSimulation::display_help() const
     std::cout << "This is an airport tower simulator" << std::endl
               << "the following keysstrokes have meaning:" << std::endl;
 
-    for (const auto& [key, value] : GL::keystrokes)
+    for (const auto &[key, value] : GL::keystrokes)
     {
         std::cout << key << ' ';
     }
@@ -74,8 +71,8 @@ void TowerSimulation::display_help() const
 
 void TowerSimulation::init_airport()
 {
-    airport = new Airport { one_lane_airport, Point3D { 0, 0, 0 },
-                            new img::Image { one_lane_airport_sprite_path.get_full_path() }, aircraft_manager };
+    airport = new Airport{one_lane_airport, Point3D{0, 0, 0},
+                          new img::Image{one_lane_airport_sprite_path.get_full_path()}, aircraft_manager};
 
     GL::move_queue.emplace(airport);
 }

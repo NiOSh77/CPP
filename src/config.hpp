@@ -4,8 +4,8 @@
 
 #include <stdexcept>
 
-const MediaPath one_lane_airport_sprite_path = { "airport_1lane.png" };
-const MediaPath two_lane_airport_sprite_path = { "airport_2lane.png" };
+const MediaPath one_lane_airport_sprite_path = {"airport_1lane.png"};
+const MediaPath two_lane_airport_sprite_path = {"airport_2lane.png"};
 
 // number of cycles needed to service an aircraft at a terminal
 constexpr unsigned int SERVICE_CYCLES = 40u;
@@ -25,7 +25,7 @@ constexpr unsigned int DEFAULT_TICKS_PER_SEC = 16u;
 // default zoom factor
 constexpr float DEFAULT_ZOOM = 2.0f;
 // default window dimensions
-constexpr size_t DEFAULT_WINDOW_WIDTH  = 800;
+constexpr size_t DEFAULT_WINDOW_WIDTH = 800;
 constexpr size_t DEFAULT_WINDOW_HEIGHT = 600;
 
 using AircraftCrash = std::runtime_error;

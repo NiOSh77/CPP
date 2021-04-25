@@ -7,13 +7,13 @@
 
 WaypointQueue Tower::get_circle() const
 {
-    return { { Point3D { -1.5f, -1.5f, .5f }, wp_air },
-             { Point3D { 1.5f, -1.5f, .5f }, wp_air },
-             { Point3D { 1.5f, 1.5f, .5f }, wp_air },
-             { Point3D { -1.5f, 1.5f, .5f }, wp_air } };
+    return {{Point3D{-1.5f, -1.5f, .5f}, wp_air},
+            {Point3D{1.5f, -1.5f, .5f}, wp_air},
+            {Point3D{1.5f, 1.5f, .5f}, wp_air},
+            {Point3D{-1.5f, 1.5f, .5f}, wp_air}};
 }
 
-WaypointQueue Tower::get_instructions(Aircraft& aircraft)
+WaypointQueue Tower::get_instructions(Aircraft &aircraft)
 {
     if (!aircraft.is_at_terminal)
     {
@@ -43,7 +43,7 @@ WaypointQueue Tower::get_instructions(Aircraft& aircraft)
         const auto it = reserved_terminals.find(&aircraft);
         assert(it != reserved_terminals.end());
         const auto terminal_num = it->second;
-        Terminal& terminal      = airport.get_terminal(terminal_num);
+        Terminal &terminal = airport.get_terminal(terminal_num);
         if (!terminal.is_servicing())
         {
             aircraft.is_service_done = true;
@@ -59,7 +59,7 @@ WaypointQueue Tower::get_instructions(Aircraft& aircraft)
     }
 }
 
-void Tower::arrived_at_terminal(const Aircraft& aircraft)
+void Tower::arrived_at_terminal(const Aircraft &aircraft)
 {
     const auto it = reserved_terminals.find(&aircraft);
     assert(it != reserved_terminals.end());

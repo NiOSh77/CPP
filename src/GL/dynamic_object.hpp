@@ -2,16 +2,17 @@
 
 #include <unordered_set>
 
-namespace GL {
-
-class DynamicObject
+namespace GL
 {
-public:
-    virtual ~DynamicObject() {}
 
-    virtual bool update() = 0;
-};
+    class DynamicObject
+    {
+    public:
+        virtual ~DynamicObject() {}
 
-inline std::unordered_set<DynamicObject*> move_queue;
+        virtual bool update() = 0;
+    };
+
+    inline std::unordered_set<DynamicObject *> move_queue;
 
 } // namespace GL

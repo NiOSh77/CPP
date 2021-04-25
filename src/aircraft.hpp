@@ -13,15 +13,15 @@
 class Aircraft : public GL::Displayable, public GL::DynamicObject
 {
 private:
-    const AircraftType& type;
+    const AircraftType &type;
     const std::string flight_number;
     Point3D pos, speed; // note: the speed should always be normalized to length 'speed'
     WaypointQueue waypoints = {};
-    Tower& control;
+    Tower &control;
     bool landing_gear_deployed = false; // is the landing gear deployed?
-    bool is_at_terminal        = false;
-    bool is_service_done       = false;
-    bool is_asking_terminal    = true;
+    bool is_at_terminal = false;
+    bool is_service_done = false;
+    bool is_asking_terminal = true;
     int fuel = rand() % 2851 + 150;
 
     // turn the aircraft to arrive at the next waypoint
@@ -42,29 +42,28 @@ private:
     void operate_landing_gear();
 
     template <bool front>
-    void add_waypoint(const Waypoint& wp);
+    void add_waypoint(const Waypoint &wp);
     bool is_on_ground() const { return pos.z() < DISTANCE_THRESHOLD; }
     float max_speed() const { return is_on_ground() ? type.max_ground_speed : type.max_air_speed; }
 
-    Aircraft(const Aircraft&) = delete;
-    Aircraft& operator=(const Aircraft&) = delete;
+    Aircraft(const Aircraft &) = delete;
+    Aircraft &operator=(const Aircraft &) = delete;
     //Aircraft& operator=(const Aircraft&) = delete;
 
 public:
-    Aircraft(const AircraftType& type_, const std::string_view& flight_number_, const Point3D& pos_,
-             const Point3D& speed_, Tower& control_) :
-        GL::Displayable { pos_.x() + pos_.y() },
-        type { type_ },
-        flight_number { flight_number_ },
-        pos { pos_ },
-        speed { speed_ },
-        control { control_ }
+    Aircraft(const AircraftType &type_, const std::string_view &flight_number_, const Point3D &pos_,
+             const Point3D &speed_, Tower &control_) : GL::Displayable{pos_.x() + pos_.y()},
+                                                       type{type_},
+                                                       flight_number{flight_number_},
+                                                       pos{pos_},
+                                                       speed{speed_},
+                                                       control{control_}
     {
         speed.cap_length(max_speed());
     }
 
-    const std::string& get_flight_num() const { return flight_number; }
-    float distance_to(const Point3D& p) const { return pos.distance_to(p); }
+    const std::string &get_flight_num() const { return flight_number; }
+    float distance_to(const Point3D &p) const { return pos.distance_to(p); }
 
     void display() const override;
     bool update() override;

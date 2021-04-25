@@ -11,7 +11,7 @@ void Aircraft::turn_to_waypoint()
         Point3D target = waypoints[0];
         if (waypoints.size() > 1)
         {
-            const float d   = (waypoints[0] - pos).length();
+            const float d = (waypoints[0] - pos).length();
             const Point3D W = (waypoints[0] - waypoints[1]).normalize(d / 2.0f);
             target += W;
         }
@@ -30,7 +30,7 @@ unsigned int Aircraft::get_speed_octant() const
     const float speed_len = speed.length();
     if (speed_len > 0)
     {
-        const Point3D norm_speed { speed * (1.0f / speed_len) };
+        const Point3D norm_speed{speed * (1.0f / speed_len)};
         const float angle =
             (norm_speed.y() > 0) ? 2.0f * 3.141592f - std::acos(norm_speed.x()) : std::acos(norm_speed.x());
         // partition into NUM_AIRCRAFT_TILES equal pieces
@@ -56,9 +56,9 @@ void Aircraft::operate_landing_gear()
 {
     if (waypoints.size() > 1u)
     {
-        const auto it            = waypoints.begin();
+        const auto it = waypoints.begin();
         const bool ground_before = it->is_on_ground();
-        const bool ground_after  = std::next(it)->is_on_ground();
+        const bool ground_after = std::next(it)->is_on_ground();
         // deploy/retract landing gear when landing/lifting-off
         if (ground_before && !ground_after)
         {
@@ -77,7 +77,7 @@ void Aircraft::operate_landing_gear()
 }
 
 template <bool front>
-void Aircraft::add_waypoint(const Waypoint& wp)
+void Aircraft::add_waypoint(const Waypoint &wp)
 {
     if constexpr (front)
     {
@@ -93,11 +93,11 @@ bool Aircraft::update()
 {
     if (waypoints.empty())
     {
-        if(is_service_done)
+        if (is_service_done)
         {
             return false;
         }
-        for (const auto& wp: control.get_instructions(*this))
+        for (const auto &wp : control.get_instructions(*this))
         {
             add_waypoint<false>(wp);
         }
@@ -128,10 +128,10 @@ bool Aircraft::update()
             if (!landing_gear_deployed)
             {
                 using namespace std::string_literals;
-                throw AircraftCrash { flight_number + " crashed into the ground"s };
+                throw AircraftCrash{flight_number + " crashed into the ground"s};
             }
         }
-        else if(fuel != 0)
+        else if (fuel != 0)
         {
             // if we are in the air, but too slow, then we will sink!
             const float speed_len = speed.length();
@@ -156,7 +156,7 @@ bool Aircraft::update()
         }
         else
         {
-            throw AircraftCrash { flight_number + " crashed into the ground" };
+            throw AircraftCrash{flight_number + " crashed into the ground"};
         }
 
         // update the z-value of the displayable structure
@@ -167,7 +167,7 @@ bool Aircraft::update()
 
 void Aircraft::display() const
 {
-    type.texture.draw(project_2D(pos), { PLANE_TEXTURE_DIM, PLANE_TEXTURE_DIM }, get_speed_octant());
+    type.texture.draw(project_2D(pos), {PLANE_TEXTURE_DIM, PLANE_TEXTURE_DIM}, get_speed_octant());
 }
 
 bool Aircraft::has_terminal() const
@@ -200,12 +200,11 @@ void Aircraft::refill(int &fuel_stock)
     assert(fuel_stock >= 0 && "fuels_stock must be positive");
     const auto remaining = 3000 - fuel;
     std::cout << flight_number << " received : ";
-    if(fuel_stock - remaining < 0)
+    if (fuel_stock - remaining < 0)
     {
         fuel += fuel_stock;
         std::cout << fuel;
         fuel_stock = 0;
-        
     }
     else
     {
