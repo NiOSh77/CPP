@@ -21,3 +21,8 @@ std::unique_ptr<Aircraft> AircraftFactory::create_random_aircraft()
 {
     return create_aircraft(*(aircraft_types[rand() % 3]));
 }
+
+std::string AircraftFactory::get_airline(const int index)
+{
+    return airlines[index];
+}

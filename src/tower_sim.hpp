@@ -13,6 +13,8 @@ private:
     Airport* airport = nullptr;
     AircraftManager aircraft_manager;
     AircraftFactory aircraft_factory{airport};
+    std::string selected_airline = aircraft_factory.get_airline(0);
+    
 
     TowerSimulation(const TowerSimulation&) = delete;
     TowerSimulation& operator=(const TowerSimulation&) = delete;

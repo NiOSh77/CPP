@@ -20,6 +20,8 @@ public:
     {
     }
 
+    std::string get_airline(const int index);
+
     // note: textures have to be initialized after initializing glut, so we'll need
     // our own init here
     void init(Airport* airport_)

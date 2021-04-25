@@ -11,4 +11,6 @@ public:
     void add(std::unique_ptr<Aircraft> aircraft);
 
     bool update() override;
+
+    void printsNumberAircraftByAirlines(const std::string &airlineType) const;
 };

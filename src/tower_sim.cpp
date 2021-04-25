@@ -34,7 +34,7 @@ TowerSimulation::~TowerSimulation()
 
 void TowerSimulation::create_keystrokes() 
 {
-    GL::keystrokes.emplace('x', []() { GL::exit_loop(); });
+    GL::keystrokes.emplace('x', [this]() { aircraft_manager.printsNumberAircraftByAirlines(selected_airline); });
     GL::keystrokes.emplace('q', []() { GL::exit_loop(); });
     GL::keystrokes.emplace('c', [this]() { aircraft_manager.add(aircraft_factory.create_random_aircraft()); });
     GL::keystrokes.emplace('+', []() { GL::change_zoom(0.95f); });
@@ -45,6 +45,11 @@ void TowerSimulation::create_keystrokes()
     GL::keystrokes.emplace('s', []() { if(GL::ticks_per_sec > 1u) GL::ticks_per_sec--; });
 
     GL::keystrokes.emplace('p', []() { GL::is_paused = !GL::is_paused; });
+
+    for (int x = 0; x < 8; x++)
+    {
+        GL::keystrokes.emplace('0' + x, [this, x]() { selected_airline = aircraft_factory.get_airline(x); });
+    }
 }
 
 void TowerSimulation::display_help() const
