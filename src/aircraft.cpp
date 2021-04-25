@@ -104,7 +104,7 @@ bool Aircraft::update()
         turn_to_waypoint();
         // move in the direction of the current speed
         pos += speed;
-        std::cout << flight_number << " fuel : " << fuel << std::endl;
+       //std::cout << flight_number << " fuel : " << fuel << std::endl;
         // if we are close to our next waypoint, stike if off the list
         if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
         {
@@ -136,6 +136,16 @@ bool Aircraft::update()
                 pos.z() -= SINK_FACTOR * (SPEED_THRESHOLD - speed_len);
             }
             fuel--;
+            /*if(is_asking_terminal)
+            {
+                auto res = control.reserve_terminal(*this);
+                if(!res.empty())
+                {
+                    //Waypoints.end() car l'avion doit finir sa ronde avant de se poser
+                    std::copy(res.begin(), res.end(), std::back_inserter(waypoints));
+                    is_asking_terminal = false;
+                }
+            }*/
         }
         else
         {
@@ -152,4 +162,14 @@ bool Aircraft::update()
 void Aircraft::display() const
 {
     type.texture.draw(project_2D(pos), { PLANE_TEXTURE_DIM, PLANE_TEXTURE_DIM }, get_speed_octant());
+}
+
+bool Aircraft::has_terminal() const
+{
+    return waypoints.back().type == wp_terminal;
+}
+
+bool Aircraft::is_circling() const
+{
+    return waypoints.back().type == wp_air;
 }

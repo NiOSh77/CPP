@@ -21,6 +21,7 @@ private:
     bool landing_gear_deployed = false; // is the landing gear deployed?
     bool is_at_terminal        = false;
     bool is_service_done       = false;
+    bool is_asking_terminal    = true;
     int fuel = rand() % 2851 + 150;
 
     // turn the aircraft to arrive at the next waypoint
@@ -64,6 +65,9 @@ public:
 
     void display() const override;
     bool update() override;
+
+    bool has_terminal() const;
+    bool is_circling() const;
 
     friend class Tower;
 };
