@@ -25,6 +25,7 @@ WaypointQueue Tower::get_instructions(Aircraft &aircraft)
             if (!vp.first.empty())
             {
                 reserved_terminals.emplace(&aircraft, vp.second);
+                aircraft.is_asking_terminal = false;
                 return vp.first;
             }
             else
@@ -73,6 +74,7 @@ WaypointQueue Tower::reserve_terminal(Aircraft &aircraft)
     if (!vp.first.empty())
     {
         reserved_terminals.emplace(&aircraft, vp.second);
+        aircraft.is_asking_terminal = false;
         return vp.first;
     }
     else

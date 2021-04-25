@@ -140,7 +140,7 @@ bool Aircraft::update()
                 pos.z() -= SINK_FACTOR * (SPEED_THRESHOLD - speed_len);
             }
             fuel--;
-            /*if(is_asking_terminal)
+            if(is_asking_terminal)
             {
                 auto res = control.reserve_terminal(*this);
                 if(!res.empty())
@@ -150,9 +150,8 @@ bool Aircraft::update()
                     {
                         waypoints.emplace_back(current);
                     }
-                    is_asking_terminal = false;
                 }
-            }*/
+            }
         }
         else
         {
