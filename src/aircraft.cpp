@@ -104,7 +104,7 @@ bool Aircraft::update()
         turn_to_waypoint();
         // move in the direction of the current speed
         pos += speed;
-
+        std::cout << flight_number << " fuel : " << fuel << std::endl;
         // if we are close to our next waypoint, stike if off the list
         if (!waypoints.empty() && distance_to(waypoints.front()) < DISTANCE_THRESHOLD)
         {
@@ -127,7 +127,7 @@ bool Aircraft::update()
                 throw AircraftCrash { flight_number + " crashed into the ground"s };
             }
         }
-        else
+        else if(fuel != 0)
         {
             // if we are in the air, but too slow, then we will sink!
             const float speed_len = speed.length();
@@ -135,6 +135,12 @@ bool Aircraft::update()
             {
                 pos.z() -= SINK_FACTOR * (SPEED_THRESHOLD - speed_len);
             }
+            fuel--;
+        }
+        else
+        {
+            std::cout << flight_number << " crashed" << std::endl;
+            return false;
         }
 
         // update the z-value of the displayable structure

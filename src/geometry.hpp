@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <numeric>
 
 struct Point2D
 {
@@ -64,7 +65,7 @@ struct Point2D
 
 struct Point3D
 {
-    float values[3] {};
+    std::array<float, 3> values {};
 
     Point3D() {}
     Point3D(float x, float y, float z) : values { x, y, z } {}
