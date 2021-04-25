@@ -152,8 +152,7 @@ bool Aircraft::update()
         }
         else
         {
-            std::cout << flight_number << " crashed" << std::endl;
-            return false;
+            throw AircraftCrash { flight_number + " crashed into the ground" };
         }
 
         // update the z-value of the displayable structure
@@ -189,12 +188,12 @@ int Aircraft::fuel_remaining() const
 
 bool Aircraft::is_low_on_fuel() const
 {
-    return fuel < 2000;
+    return fuel < 200;
 }
 
 void Aircraft::refill(int &fuel_stock)
 {
-    assert(fuel_stock < 0 && "fuels_stock muste be positive");
+    assert(fuel_stock >= 0 && "fuels_stock must be positive");
     const auto remaining = 3000 - fuel;
     std::cout << flight_number << " received : ";
     if(fuel_stock - remaining < 0)
